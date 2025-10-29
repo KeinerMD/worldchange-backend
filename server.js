@@ -10,6 +10,21 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  res.send("🚀 Backend de WorldChange funcionando correctamente!");
+});
+
+// Ruta de prueba: obtener lista de usuarios
+app.get("/api/usuarios", (req, res) => {
+  const usuarios = [
+    { nombre: "Laura Gómez", correo: "laura@correo.com" },
+    { nombre: "Carlos Ruiz", correo: "carlos@correo.com" },
+    { nombre: "Sofía Torres", correo: "sofia@correo.com" },
+  ];
+  res.json(usuarios);
+});
+
+
 const DATABASE_URL = process.env.DATABASE_URL || null;
 let pool = null;
 const useJsonFallback = !DATABASE_URL;
@@ -121,4 +136,5 @@ app.put('/api/orders/:id', async (req, res) => {
 app.get('/api/ping', (req,res)=>res.json({ ok:true, env: useJsonFallback ? 'demo-json' : 'postgres' }));
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, ()=> console.log('WorldChain backend listening on', PORT));
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+
